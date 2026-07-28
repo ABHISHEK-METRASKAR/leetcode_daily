@@ -1,42 +1,21 @@
 class Solution {
     public String processStr(String s) {
-
-        Stack<Character> result = new Stack<>();
-
-        for(int i=0; i<s.length(); i++){
-            char ch = s.charAt(i);
-
-            switch(ch){
-
-                case '*':
-                        {
-                            if (!result.isEmpty()) {
-                                result.pop();
-                            }
-                        }
-                        break;
-                
-                case '#':
-                        {
-                            Stack<Character> currentCopy = new Stack<>();
-                            currentCopy.addAll(result);
-                            result.addAll(currentCopy);
-                        }
-                        break;
-
-                case '%':
-                        {
-                            Collections.reverse(result);
-                        }
-                        break;
-                
-                default : result.push(ch);
+        StringBuilder sb = new StringBuilder();
+        
+        for (char c : s.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                sb.append(c);
+            } else if (c == '*') {
+                if (sb.length() > 0) {
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            } else if (c == '#') {
+                sb.append(sb.toString());
+            } else if (c == '%') {
+                sb.reverse();
             }
         }
-        StringBuilder r = new StringBuilder();
-        for (char c : result) {
-            r.append(c);
-        }
-        return r.toString();
+        
+        return sb.toString();
     }
 }

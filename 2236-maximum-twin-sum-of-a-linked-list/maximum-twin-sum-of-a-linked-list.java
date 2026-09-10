@@ -14,37 +14,39 @@
 class Solution {
     public int pairSum(ListNode head) {
 
-        // Find middle of the linked list
-        ListNode slow = head;
         ListNode fast = head;
+        ListNode slow = head;
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
+        while(fast != null && fast.next != null){
             fast = fast.next.next;
+            slow = slow.next;
         }
 
-        // Reverse second half
+        //slow pointing to middle
+
         ListNode prev = null;
         ListNode curr = slow;
 
-        while (curr != null) {
-            ListNode next = curr.next;
+        while(curr != null){
+            ListNode front = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = next;
+            curr = front;
         }
 
-        // Calculate maximum twin sum
+        //prev has pointing to reversed newHead
+
         int maxSum = 0;
         ListNode first = head;
         ListNode second = prev;
 
-        while (second != null) {
-            maxSum = Math.max(maxSum, first.val + second.val);
+        while(second != null){
+            maxSum = Math.max(maxSum, first.val+second.val);
             first = first.next;
             second = second.next;
         }
-
+        
         return maxSum;
+
     }
 }

@@ -1,17 +1,21 @@
 class Solution {
     public int jump(int[] nums) {
-       int jumps = 0;
-       int currentEnd = 0;
-       int fasthest = 0;
 
-       for(int i=0; i<nums.length-1; i++){
-            fasthest = Math.max(fasthest,i+nums[i]);
+        int n = nums.length;
+        int jumps = 0;
+        int left = 0; 
+        int right = 0;
 
-            if(i==currentEnd){
-                jumps++;
-                currentEnd = fasthest;
+        while(right < n-1){
+            int maxIndex = 0;
+            for(int i=left; i<=right; i++){
+                maxIndex = Math.max(i+nums[i], maxIndex);
             }
-       } 
-       return jumps;
+            left = right+1;
+            right = maxIndex;
+            jumps++;
+        }
+        return jumps;
     }
+
 }
